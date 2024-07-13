@@ -4,6 +4,6 @@ Both header files are included in main.cpp which takes the return value from get
 This would cause a compile error as there are duplicate getNumOfSides functions so compiler will not know which one to use in the int main() function
 However the use of header guards will prevent this ("#ifndef" preprocessor command) as only one getNumOfSides function will be used
 
-First, the preprocessor evaluates #ifndef SQUARE_H. SQUARE_H has not been defined yet, so the code from the #ifndef to the subsequent #endif is included for compilation. This code defines SQUARE_H, and has the definition for the getSquareSides function.
+  First, the preprocessor evaluates #ifndef SHAPE_H. SHAPE_H has not been defined yet, so the code from the #ifndef to the subsequent #endif is included for compilation. This code defines SHAPE_H, and has the definition for the getNumOfSides function.
 
-Later, the next #ifndef SQUARE_H is evaluated. This time, SQUARE_H is defined (because it got defined above), so the code from the #ifndef to the subsequent #endif is excluded from compilation.
+Later, the next #ifndef SHAPE_H is evaluated. This time, SHAPE_H is defined (because it got defined above), so the code from the #ifndef to the subsequent #endif is excluded from compilation.
