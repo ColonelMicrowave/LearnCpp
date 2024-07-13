@@ -3,3 +3,7 @@ Contents of Shape.h are also included in SecondShape.h
 Both header files are included in main.cpp which takes the return value from getNumOfSides in Shape.cpp and prints it to the console
 This would cause a compile error as there are duplicate getNumOfSides functions so compiler will not know which one to use in the int main() function
 However the use of header guards will prevent this ("#ifndef" preprocessor command) as only one getNumOfSides function will be used
+
+First, the preprocessor evaluates #ifndef SQUARE_H. SQUARE_H has not been defined yet, so the code from the #ifndef to the subsequent #endif is included for compilation. This code defines SQUARE_H, and has the definition for the getSquareSides function.
+
+Later, the next #ifndef SQUARE_H is evaluated. This time, SQUARE_H is defined (because it got defined above), so the code from the #ifndef to the subsequent #endif is excluded from compilation.
