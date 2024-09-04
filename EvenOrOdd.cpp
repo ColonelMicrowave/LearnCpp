@@ -1,6 +1,6 @@
 #include <iostream>
 
-bool isEven(int num)
+constexpr bool isEven(int num)
 {
 	return num % 2 == 0;
 }
