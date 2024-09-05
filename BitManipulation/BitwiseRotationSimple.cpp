@@ -3,11 +3,11 @@
 
 std::bitset<4> rotateLeft(std::bitset<4> bits)
 {
-	bool bitCheck = bits.test(3);
+	const bool bitCheck = bits.test(3);
 
 	bits <<= 1;
 
-	if (bitCheck != bits.test(3))
+	if (bitCheck)
 		bits.set(0);
 
 	return bits;
