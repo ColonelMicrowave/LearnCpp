@@ -2,7 +2,7 @@
 
 constexpr bool isEven(int num)
 {
-	return num % 2 == 0;
+	return !(num % 2);
 }
 
 int main()
