@@ -25,8 +25,11 @@ int main()
     std::cout << "Enter an integer between 0 and 255: ";
     int userNum{ };
     std::cin >> userNum;
-    
-    print8BitBinary(userNum);
+
+    if (userNum > 255 || userNum < 0)
+        std::cout << "Number out of bounds";
+    else
+        print8BitBinary(userNum);
     
     return 0;
 }
