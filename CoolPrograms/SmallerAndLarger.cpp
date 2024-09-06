@@ -10,18 +10,20 @@ int main()
 	int num2{ };
 	std::cin >> num2;
 
-	if (num1 > num2)
+	if (num1 > num2) // if the user entered wrong
 	{
 		std::cout << "Swapping the values\n";
 		int smallNum{ num2 };
 		int largeNum{ num1 };
 		std::cout << "The smaller value is " << smallNum << '\n';
 		std::cout << "The larger value is " << largeNum << '\n';
-	}
+	} // smallNum and largeNum are destroyed here
+
 	if (num1 == num2)
 	{
 		std::cout << "The numbers are the same\n";
 	}
+
 	else
 	{
 		std::cout << "The smaller value is " << num1 << '\n';
@@ -29,4 +31,4 @@ int main()
 	}
 
 	return 0;
-}
+} // num1 and num2 are destroyed here
