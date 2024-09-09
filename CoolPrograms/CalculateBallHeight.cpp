@@ -1,38 +1,54 @@
 #include <iostream>
 
-double getBuildingHeight()
+namespace Constants
 {
-	std::cout << "Enter the height of the building in meters: ";
-	double height{};
-	std::cin >> height;
-
-	return height;
+	constexpr double gravity{ 9.8 };
 }
 
-double calculateHeight(double initialHeight, int seconds)
+double getTowerHeight()
 {
-	double distanceFallen{ 0.5 * (9.8 * seconds * seconds) };
-	double currentHeight{ initialHeight - distanceFallen };
-
-	return currentHeight;
+	std::cout << "Enter the height of the tower in meters: ";
+	double towerHeight{};
+	std::cin >> towerHeight;
+	return towerHeight;
 }
 
-void printHeight(double height, int seconds)
+constexpr double calculateBallHeight(double towerHeight, int seconds)
 {
-	if (height > 0.0)
-		std::cout << "At " << seconds << " seconds, the ball is at height: " << height << " meters\n";
+
+	const double fallDistance{ Constants::gravity * (seconds * seconds) / 2.0 };
+	const double ballHeight{ towerHeight - fallDistance };
+
+	if (ballHeight < 0.0)
+		return 0.0;
+
+	return ballHeight;
+}
+
+void printBallHeight(double ballHeight, int seconds)
+{
+	if (ballHeight > 0.0)
+		std::cout << "At " << seconds << " seconds, the ball is at height: " << ballHeight << " meters\n";
 	else
 		std::cout << "At " << seconds << " seconds, the ball is on the ground.\n";
 }
 
+double calculateAndPrintBallHeight(double towerHeight, int seconds)
+{
+	double ballHeight{ calculateBallHeight(towerHeight, seconds) };
+	printBallHeight(ballHeight, seconds);
+
+	return ballHeight;
+}
+
 int main()
 {
-	double height{ getBuildingHeight() };
+	double towerHeight{ getTowerHeight() };
 
-	printHeight( calculateHeight(height, 0), 0 );
-	printHeight( calculateHeight(height, 1), 1 );
-	printHeight( calculateHeight(height, 2), 2 );
-	printHeight( calculateHeight(height, 3), 3 );
-	printHeight( calculateHeight(height, 4), 4 );
-	printHeight( calculateHeight(height, 5), 5 );
+	int seconds{ 0 };
+	while (calculateAndPrintBallHeight(towerHeight, seconds) > 0.0)
+	{
+		++seconds;
+	}
+	return 0;
 }
