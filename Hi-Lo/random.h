@@ -1,3 +1,5 @@
+// This code is provided by learncpp.com
+
 #ifndef RANDOM_MT_H
 #define RANDOM_MT_H
 
