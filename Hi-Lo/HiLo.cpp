@@ -1,5 +1,3 @@
-// Requires C++17 or newer to run
-
 #include <iostream>
 #include "random.h"
 
@@ -57,9 +55,29 @@ int main()
 	int min{ getMin() };
 	int max{ getMax() };
 	int maxGuesses{ getMaxGuesses() };
+
+	if (min > max)
+	{
+		int temp{ min };
+		min = max;
+		max = temp;
+
+		if (maxGuesses < 1)
+		{
+			maxGuesses = 1;
+		}
+	}
+
 	int randNum{ getRand(min, max) };
 
-	std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have " << maxGuesses << " tries to guess what it is.\n";
+	if (maxGuesses == 1)
+	{
+		std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have 1 try to guess it correctly.\n";
+	}
+	else
+	{
+		std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have " << maxGuesses << " tries to guess it correctly.\n";
+	}
 
 	int guess{ 0 };
 	
