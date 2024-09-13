@@ -125,69 +125,69 @@ int uGuess(int guessNumber)
 
 int main()
 {
-	std::cout << "Welcome to Hi-Lo!\n";
-
-	int min{ getMin() };
-	int max{ getMax() };
-	int maxGuesses{ getMaxGuesses() };
-
-	if (min > max)
+	while (true)
 	{
-		int temp{ min };
-		min = max;
-		max = temp;
-	}
+		std::cout << "Welcome to Hi-Lo!\n";
 
-	int randNum{ getRand(min, max) };
+		int min{ getMin() };
+		int max{ getMax() };
+		int maxGuesses{ getMaxGuesses() };
 
-	if (maxGuesses == 1)
-	{
-		std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have 1 try to guess it correctly.\n";
-	}
-	else
-	{
-		std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have " << maxGuesses << " tries to guess it correctly.\n";
-	}
-
-	int guess{ 0 };
-	
-	while (maxGuesses > guess)
-	{
-		int userGuess = uGuess(guess);
-
-		if (userGuess < min || userGuess > max)
+		if (min > max)
 		{
-			std::cout << "Your guess is out of range.\n";
+			int temp{ min };
+			min = max;
+			max = temp;
 		}
-		else if (userGuess == randNum)
+
+		int randNum{ getRand(min, max) };
+
+		if (maxGuesses == 1)
 		{
-			std::cout << "Correct! You win!\n";
+			std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have 1 try to guess it correctly.\n";
+		}
+		else
+		{
+			std::cout << "I'm thinking of a number between " << min << " and " << max << ". You have " << maxGuesses << " tries to guess it correctly.\n";
+		}
+
+		int guess{ 0 };
+
+		while (maxGuesses > guess)
+		{
+			int userGuess = uGuess(guess);
+
+			if (userGuess < min || userGuess > max)
+			{
+				std::cout << "Your guess is out of range.\n";
+			}
+			else if (userGuess == randNum)
+			{
+				std::cout << "Correct! You win!\n";
+				break;
+			}
+			else if (userGuess < randNum)
+			{
+				std::cout << "Your guess is too low.\n";
+				++guess;
+			}
+			else if (userGuess > randNum)
+			{
+				std::cout << "Your guess is too high.\n";
+				++guess;
+			}
+		}
+
+		if (maxGuesses == guess)
+		{
+			std::cout << "Sorry, you lose. The correct number was " << randNum << ".\n";
+		}
+
+		if (!playAgain())
+		{
+			std::cout << "Thank you for playing!\n";
 			break;
 		}
-		else if (userGuess < randNum)
-		{
-			std::cout << "Your guess is too low.\n";
-			++guess;
-		}
-		else if (userGuess > randNum)
-		{
-			std::cout << "Your guess is too high.\n";
-			++guess;
-		}
-	}
-
-	if (maxGuesses == guess)
-	{
-		std::cout << "Sorry, you lose. The correct number was " << randNum << ".\n";
-	}
-
-	if (playAgain())
-	{
-		main();
-	}
-	else
-	{
-		std::cout << "Thank you for playing.\n";
 	}
 
 	return 0;
