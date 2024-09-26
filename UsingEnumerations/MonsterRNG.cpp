@@ -63,7 +63,7 @@ int main()
 	}
 
 	// Generates a random monster by choosing a random number and casting it to a MonsterType
-	Monster::MonsterType randomMonster{ static_cast<Monster::MonsterType>(Random::get(0, static_cast<int>(Monster::maxMonsters))) };
+	Monster::MonsterType randomMonster{ static_cast<Monster::MonsterType>(Random::get(0, static_cast<int>(Monster::maxMonsters - 1))) };
 	std::cout << getMonster(randomMonster);
 
 	return 0;
