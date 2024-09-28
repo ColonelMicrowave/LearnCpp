@@ -16,7 +16,7 @@ namespace Monster
 	};
 }
 
-constexpr std::string_view getMonster(Monster::MonsterType type)
+std::string_view getMonster(Monster::MonsterType type)
 {
 	switch (type)
 	{
