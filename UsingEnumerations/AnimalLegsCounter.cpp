@@ -94,7 +94,8 @@ int main()
 {
 	while (true)
 	{
-		std::cout << "Enter the name of an animal: ";
+		std::cout << "This program can tell you how many legs a pig, chicken, goat, cat, dog, or duck has.\n";
+		std::cout << "Please choose from this selection: ";
 		Animal animal{};
 		std::cin >> animal;
 
