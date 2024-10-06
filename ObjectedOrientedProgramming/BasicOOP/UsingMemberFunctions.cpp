@@ -5,12 +5,12 @@ struct IntPair
 	int num1{};
 	int num2{};
 
-	void print()
+	void print() const
 	{
 		std::cout << "Pair (" << num1 << ", " << num2 << ")\n";
 	}
 
-	bool isEqual(IntPair p2)
+	bool isEqual(IntPair p2) const
 	{
 		return ((num1 == p2.num1) && (num2 == p2.num2));
 	}
