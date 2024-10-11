@@ -8,6 +8,7 @@ private:
 	double m_radius{};
 
 public:
+	// Constructor
 	Ball(std::string_view colour, double radius)
 		: m_colour{ colour }
 		, m_radius{ radius }
