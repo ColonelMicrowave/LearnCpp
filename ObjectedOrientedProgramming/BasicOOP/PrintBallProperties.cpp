@@ -4,33 +4,36 @@
 class Ball
 {
 private:
-	std::string m_colour{};
-	double m_radius{};
+	std::string m_colour{ "Black" };
+	double m_radius{ 10.0 };
 
 public:
-	// Constructor
-	Ball(std::string_view colour, double radius)
+	// Constructor with default values for colour and radius if not provided by caller
+	Ball(std::string_view colour = "Black", double radius = 10.0)
 		: m_colour{ colour }
 		, m_radius{ radius }
 	{
+		print();
 	}
 
-	const std::string& getColour() const { return m_colour; }
-	double getRadius() const { return m_radius; }
-};
+	// Constructor which takes radius and delegates to the other constructor
+	Ball(double radius)
+		: Ball{ "Black", radius }
+	{
+	}
 
-void print(Ball ball)
-{
-	std::cout << "Ball(" << ball.getColour() << ", " << ball.getRadius() << ")\n";
-}
+	void print() const
+	{
+		std::cout << "Ball(" << m_colour << ", " << m_radius << ")\n";
+	}
+};
 
 int main()
 {
-	Ball blue{ "blue", 10.0 };
-	print(blue);
-
-	Ball red{ "red", 12.0 };
-	print(red);
+	Ball def{};
+	Ball blue{ "Blue" };
+	Ball twenty{ 20.0 };
+	Ball redTwenty{ "Red", 20.0 };
 
 	return 0;
 }
