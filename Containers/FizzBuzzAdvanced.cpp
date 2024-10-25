@@ -5,8 +5,8 @@
 
 int main()
 {
-	std::vector<std::string_view> fizzbuzz{ "fizz", "buzz", "pop", "bang", "jazz", "pow", "boom" };
-	std::vector<int> divisors{ 3, 5, 7, 11, 13, 17, 19 };
+	const std::vector<std::string_view> fizzbuzz { "fizz", "buzz", "pop", "bang", "jazz", "pow", "boom" };
+	const std::vector<int> divisors { 3, 5, 7, 11, 13, 17, 19 };
 
 	assert((fizzbuzz.size() == divisors.size()) && "FizzBuzz and Divisors size mismatch");
 
