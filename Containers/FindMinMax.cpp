@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <limits>
 
 template <typename T>
 std::pair<std::size_t, std::size_t> findMinMax(const std::vector<T>& v)
@@ -37,19 +38,39 @@ void printArray(const std::vector<T>& arr)
 
 int main()
 {
-	std::vector v1{ 3, 8, 2, 5, 7, 8, 3 };
-	printArray(v1);
+	std::vector<int> arr{};
+	std::cout << "Enter numbers to add (use -1 to stop): ";
 
-	auto m1{ findMinMax(v1) };
-	std::cout << "The min element has index " << m1.first << " and the min value is " << v1[m1.first] << "\n";
-	std::cout << "The max element has index " << m1.second << " and the max value is " << v1[m1.second] << "\n\n";
+	while (true)
+	{
+		int num{};
+		std::cin >> num;
+		if (num == -1)
+			break;
 
-	std::vector v2{ 5.5, 2.7, 3.3, 7.6, 1.2, 8.8, 6.6 };
-	printArray(v2);
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
+		
+		arr.push_back(num);
+	}
 
-	auto m2{ findMinMax(v2) };
-	std::cout << "The min element has index " << m2.first << " and the min value is " << v2[m2.first] << "\n";
-	std::cout << "The max element has index " << m2.second << " and the max value is " << v2[m2.second] << "\n\n";
+	if (arr.empty())
+	{
+		std::cout << "No numbers entered\n";
+		return 0;
+	}
+	else
+	{
+		printArray(arr);
+
+		auto minMax{ findMinMax(arr) };
+		std::cout << "Min: " << arr[minMax.first] << " at index " << minMax.first << '\n';
+		std::cout << "Max: " << arr[minMax.second] << " at index " << minMax.second << '\n';
+	}
 
 	return 0;
 }
