@@ -2,7 +2,18 @@
 #include <cassert>
 #include <algorithm>
 #include <array>
+#include <limits>
 #include "Random.h"
+
+void ignoreLine()
+{
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+namespace Settings
+{
+	int bust{ 21 };
+	int dealerStopsAt{ 17 };
+}
 
 struct Card
 {
@@ -94,13 +105,116 @@ public:
 	}
 };
 
-int main()
+struct Player
+{
+	int score{};
+};
+
+bool playerHit()
+{
+	while (true)
+	{
+		std::cout << "(h) to hit, or (s) to stand: ";
+		char choice{};
+		std::cin >> choice;
+
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			ignoreLine();
+			std::cout << "Invalid input.\n\n";
+
+			continue;
+		}
+
+		ignoreLine();
+
+		switch (choice)
+		{
+		case 'h':
+			return true;
+		case 's':
+			return false;
+		default:
+			std::cout << "Invalid input.\n\n";
+		}
+	}
+}
+
+bool playerTurn(Deck& deck, Player& player)
+{
+	while (playerHit())
+	{
+		Card card{ deck.dealCard() };
+		player.score += card.cardValue();
+
+		std::cout << "You were dealt " << card << ". You now have: " << player.score << '\n';
+
+		if (player.score > Settings::bust)
+		{
+			std::cout << "You went bust!\n";
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool dealerTurn(Deck& deck, Player& dealer)
+{
+	while (dealer.score < Settings::dealerStopsAt)
+	{
+		Card card{ deck.dealCard() };
+		dealer.score += card.cardValue();
+
+		std::cout << "The dealer flips a " << card << ". They now have: " << dealer.score << '\n';
+	}
+
+	if (dealer.score > Settings::bust)
+	{
+		std::cout << "The dealer went bust!\n";
+		return true;
+	}
+
+	return false;
+}
+
+bool playBlackjack()
 {
 	Deck deck{};
-	std::cout << deck.dealCard() << ' ' << deck.dealCard() << ' ' << deck.dealCard() << '\n';
-
 	deck.shuffle();
-	std::cout << deck.dealCard() << ' ' << deck.dealCard() << ' ' << deck.dealCard() << '\n';
+
+	Player dealer{ deck.dealCard().cardValue() };
+
+	std::cout << "The dealer is showing: " << dealer.score << '\n';
+
+	Player player{ deck.dealCard().cardValue() + deck.dealCard().cardValue() };
+
+	std::cout << "You have score: " << player.score << '\n';
+
+	if (playerTurn(deck, player))
+	{
+		return false;
+	}
+
+	if (dealerTurn(deck, dealer))
+	{
+		return true;
+	}
+
+	return (player.score > dealer.score);
+}
+
+int main()
+{
+	if (playBlackjack())
+	{
+		std::cout << "You win!\n";
+	}
+	else
+	{
+		std::cout << "You lose!\n";
+	}
 
 	return 0;
 }
