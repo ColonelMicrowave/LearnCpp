@@ -250,21 +250,58 @@ Result playBlackjack()
 		return Result::draw;
 }
 
+bool playAgain()
+{
+	std::cout << "Would you like to play again? (y/n): ";
+
+	while (true)
+	{
+		char choice{};
+		std::cin >> choice;
+
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			ignoreLine();
+			std::cout << "Invalid input. Try again: ";
+
+			continue;
+		}
+
+		ignoreLine();
+
+		switch (choice)
+		{
+		case 'y':
+			return true;
+		case 'n':
+			return false;
+		default:
+			std::cout << "Invalid input. Try again: ";
+		}
+	}
+}
+
 int main()
 {
-	switch (playBlackjack())
+	do
 	{
-	case Result::win:
-		std::cout << "You win!\n";
-		return 0;
-	case Result::loss:
-		std::cout << "You lose!\n";
-		return 0;
-	case Result::draw:
-		std::cout << "You draw!\n";
-		return 0;
-	default:
-		std::cout << "How have you done this???\n";
-		return 0;
-	}
+		switch (playBlackjack())
+		{
+		case Result::win:
+			std::cout << "You win!\n";
+			break;
+		case Result::loss:
+			std::cout << "You lose!\n";
+			break;
+		case Result::draw:
+			std::cout << "You draw!\n";
+			break;
+		default:
+			std::cout << "How have you done this???\n";
+			break;
+		}
+	} while (playAgain());
+
+	return 0;
 }
