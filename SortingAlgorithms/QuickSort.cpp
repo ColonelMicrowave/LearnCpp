@@ -22,10 +22,26 @@ int partition(std::vector<int>& arr, int low, int high)
 	return (i + 1);
 }
 
-int randomisedPartition(std::vector<int>& arr, int low, int high)
+int medianOfThree(const std::vector<int>& arr, int low, int mid, int high)
 {
-	int randomIndex{ Random::get(low, high) };
-	std::swap(arr[randomIndex], arr[high]);
+	int lowVal{ arr[low] };
+	int midVal{ arr[mid] };
+	int highVal{ arr[high] };
+
+	if ((lowVal > midVal) != (lowVal > highVal))
+		return low;
+	else if ((midVal > lowVal) != (midVal > highVal))
+		return mid;
+	else
+		return high;
+}
+
+int medianOfThreePartition(std::vector<int>& arr, int low, int high)
+{
+	int mid{ low + ((high - low) / 2) };
+	int medianIndex{ medianOfThree(arr, low, mid, high) };
+
+	std::swap(arr[medianIndex], arr[high]);
 	return partition(arr, low, high);
 }
 
@@ -33,7 +49,7 @@ void quickSort(std::vector<int>& arr, int low, int high)
 {
 	if (low < high)
 	{
-		int partitionIndex{ randomisedPartition(arr, low, high) };
+		int partitionIndex{ medianOfThreePartition(arr, low, high) };
 
 		quickSort(arr, low, partitionIndex - 1);
 		quickSort(arr, partitionIndex + 1, high);
